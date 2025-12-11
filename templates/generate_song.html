@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генерация Музыки</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        textarea { width: 80%; height: 150px; }
+        button { padding: 10px; margin-top: 10px; cursor: pointer; }
+        audio, img { margin-top: 20px; display: none; }
+    </style>
+</head>
+<body>
+
+    <h2>🎵 Создание Музыки из Текста</h2>
+
+    <label for="lyrics">Введите текст песни:</label>
+    <textarea id="lyrics" placeholder="Введите текст вашей песни..."></textarea>
+
+    <button onclick="generateMusicFromText()">🎶 Создать Музыку из Текста</button>
+
+    <h3 id="status"></h3>
+
+    <audio controls id="audioPlayer">
+        <source id="audioSource" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио.
+    </audio>
+
+    <br>
+    <a id="downloadLink" style="display: none;" download>⬇ Скачать Музыку</a>
+    <br>
+    <img id="coverImage">
+
+    <script>
+        function generateMusicFromText() {
+            let lyrics = document.getElementById("lyrics").value;
+            if (!lyrics.trim()) {
+                alert("Введите текст песни!");
+                return;
+            }
+
+            document.getElementById("status").innerText = "🎶 Генерация музыки... Подождите...";
+
+            fetch('/generate-music-from-text/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `lyrics=${encodeURIComponent(lyrics)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("status").innerText = "✅ Музыка готова!";
+
+                    // Показываем аудио
+                    let audioPlayer = document.getElementById("audioPlayer");
+                    let audioSource = document.getElementById("audioSource");
+                    audioSource.src = data.stream_url;  // Используем потоковое аудио
+                    audioPlayer.style.display = "block";
+                    audioPlayer.load();
+
+                    // Показываем кнопку скачивания
+                    let downloadLink = document.getElementById("downloadLink");
+                    downloadLink.href = data.stream_url;
+                    downloadLink.innerText = "⬇ Скачать Музыку";
+                    downloadLink.style.display = "block";
+
+                    // Показываем обложку
+                    let coverImage = document.getElementById("coverImage");
+                    coverImage.src = data.image_url;
+                    coverImage.style.display = "block";
+                } else {
+                    document.getElementById("status").innerText = "❌ Ошибка: " + data.error;
+                }
+            })
+            .catch(error => {
+                console.error("Ошибка:", error);
+                document.getElementById("status").innerText = "❌ Ошибка при запросе API";
+            });
+        }
+    </script>
+
+</body>
+</html>

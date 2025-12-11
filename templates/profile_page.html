@@ -1,0 +1,270 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'profile_page/style.css' %}">
+  </head>
+  <body>
+    <div id="profile-page">
+      <div class="w-screen h-screen flex justify-center">
+        <div class="w-screen h-screen flex justify-center">
+          <div
+            class="w-screen h-screen bg-gradient-to-br from-gray-900 via-neutral-900 to-zinc-900 flex"
+          >
+            <nav
+              class="hidden md:block w-[240px] bg-gray-800/30 backdrop-blur-lg p-6 relative border-r border-gray-700/30"
+            >
+              <div class="mb-8 flex items-center justify-center">
+                <div class="relative w-32 h-32 group">
+                  <div
+                    class="absolute inset-0 bg-gradient-to-r from-gray-500 to-zinc-600 rounded-full blur-lg group-hover:blur-xl transition-all duration-300 opacity-50"
+                  ></div>
+                  <div
+                    class="relative bg-gray-900 rounded-full w-full h-full flex items-center justify-center border-2 border-gray-500/30 group-hover:scale-105 transition-all duration-300"
+                  >
+                    <span
+                      class="text-3xl font-bold bg-gradient-to-r from-gray-300 to-zinc-400 bg-clip-text text-transparent"
+                      >AIMUZ</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <ul class="space-y-6 text-gray-300">
+                <li
+                  class="flex items-center gap-3 hover:text-gray-100 hover:translate-x-1 transition-all duration-200 cursor-pointer"
+                >
+                  <span class="material-symbols-outlined">home</span>
+                  <a href="{% url 'main_page' %}">
+                  <span>Главная страница</span>
+                    </a>
+                </li>
+                <li
+                  class="flex items-center gap-3 hover:text-gray-100 hover:translate-x-1 transition-all duration-200 cursor-pointer"
+                >
+                  <span class="material-symbols-outlined">add_box</span>
+                  <a href="{% url 'music_page' %}">
+                  <span>Создать</span>
+                    </a>
+                </li>
+                <li
+                  class="flex items-center gap-3 hover:text-gray-100 hover:translate-x-1 transition-all duration-200 cursor-pointer"
+                >
+                  <span class="material-symbols-outlined">library_music</span>
+                  <a href="{% url 'library_page' %}">
+                  <span>Библиотека</span>
+                    </a>
+                </li>
+                <li
+                  class="flex items-center gap-3 text-gray-100 translate-x-1 transition-all duration-200 cursor-pointer"
+                >
+                  <span class="material-symbols-outlined">person</span>
+                  <a href="{% url 'profile_view' %}">
+                  <span>Профиль</span>
+                    </a>
+                </li>
+              </ul>
+            </nav>
+            <main class="flex-1 p-8 overflow-y-auto relative">
+              <div class="md:hidden flex justify-between items-center mb-6">
+                <div class="relative w-10 h-10 group">
+                  <div
+                    class="absolute inset-0 bg-gradient-to-r from-gray-500 to-zinc-600 rounded-full blur-lg group-hover:blur-xl transition-all duration-300 opacity-50"
+                  ></div>
+                  <div
+                    class="relative bg-gray-900 rounded-full w-full h-full flex items-center justify-center border-2 border-gray-500/30 group-hover:scale-105 transition-all duration-300"
+                  >
+                    <span
+                      class="text-sm font-bold bg-gradient-to-r from-gray-300 to-zinc-400 bg-clip-text text-transparent"
+                      >AI</span
+                    >
+                  </div>
+                </div>
+                <details class="relative">
+                  <summary class="list-none">
+                    <a href="{% url 'profile_view' %}">
+                    <div
+                      class="w-10 h-10 bg-gray-800/50 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-700/50 transition-colors"
+                    >
+                      <span class="material-symbols-outlined text-gray-300"
+                        >person</span
+                      >
+                    </div>
+                    </a>
+                  </summary>
+
+                </details>
+              </div>
+              <div class="flex flex-col gap-8">
+                <div class="bg-gray-800/30 backdrop-blur-lg rounded-xl p-8">
+                  <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="relative w-40 h-40 group">
+                      <div
+                        class="absolute inset-0 bg-gradient-to-r from-gray-500 to-zinc-600 rounded-full blur-lg group-hover:blur-xl transition-all duration-300 opacity-50"
+                      ></div>
+                      <div
+                        class="relative bg-gray-900 rounded-full w-full h-full flex items-center justify-center border-2 border-gray-500/30 group-hover:scale-105 transition-all duration-300"
+                      >
+                        <span
+                          class="material-symbols-outlined text-6xl text-gray-300"
+                          >person</span
+                        >
+                      </div>
+                    </div>
+                    <div class="flex-1">
+                      <h1 class="text-3xl font-bold mb-2 text-gray-200">
+                        {{ user.get_full_name }}
+                      </h1>
+                      <p class="text-gray-400 mb-4">{{ user.email }}</p>
+                      <div class="flex flex-wrap gap-4">
+                        <a href="{% url 'edit_profile' %}"
+                          class="px-6 py-2 bg-gradient-to-r from-gray-500 to-zinc-600 rounded-full text-gray-200 hover:from-gray-600 hover:to-zinc-700 transition-colors"
+                        >
+                          Редактировать профиль
+                        </a>
+                        <button
+                                onclick="shareTrack()"
+                          class="px-6 py-2 bg-gray-800/50 rounded-full text-gray-300 hover:bg-gray-700/50 transition-colors"
+                        >
+                          Поделиться
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div class="bg-gray-800/30 backdrop-blur-lg rounded-xl p-6">
+                    <h2 class="text-xl font-bold mb-4 text-gray-200">
+                      Статистика
+                    </h2>
+                    <div class="grid grid-cols-3 gap-4">
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-gray-200">{{ total_tracks }}</div>
+                        <div class="text-gray-400">Загружено треков</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-gray-200">
+                         {{ published_tracks }}
+                        </div>
+                        <div class="text-gray-400">Опубликовано</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-gray-200">{{ draft_tracks }}</div>
+                        <div class="text-gray-400">Черновики</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-gray-800/30 backdrop-blur-lg rounded-xl p-6">
+                    <h2 class="text-xl font-bold mb-4 text-gray-200">
+                      Активность
+                    </h2>
+                    <div class="space-y-4">
+                      <div class="flex justify-between items-center">
+                        <span class="text-gray-300"
+                          >Прослушивания за месяц</span
+                        >
+                        <span class="text-gray-200 font-bold">45.8K</span>
+                      </div>
+                      <div class="flex justify-between items-center">
+                        <span class="text-gray-300">Лайки за месяц</span>
+                        <span class="text-gray-200 font-bold">2.3K</span>
+                      </div>
+                      <div class="flex justify-between items-center">
+                        <span class="text-gray-300">Новые подписчики</span>
+                        <span class="text-gray-200 font-bold">+342</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="bg-gray-800/30 backdrop-blur-lg rounded-xl p-6">
+                  <h2 class="text-xl font-bold mb-4 text-gray-200">
+                    Популярные треки
+                  </h2>
+                  <div class="space-y-4">
+                       {% for track in liked_tracks %}
+                          <a href="{% url 'track_detail' track.id %}">
+                              <div
+                          class="flex items-center gap-4 p-4 hover:bg-gray-700/30 rounded-xl transition-colors cursor-pointer group"
+                        >
+                          <div
+                            class="w-12 h-12 bg-gray-700/50 rounded-xl flex items-center justify-center group-hover:bg-gray-600/50 transition-colors"
+                          >
+                            <span class="material-symbols-outlined text-gray-300"
+                              >music_note</span
+                            >
+                          </div>
+                          <div class="flex-1">
+                            <div class="text-gray-200 font-semibold">
+                              {{ track.title }}
+                            </div>
+                            <div class="text-gray-400 text-sm">{{ track.duration|duration_format  }}</div>
+                          </div>
+                          <div class="text-gray-400"> {{ track.listens_count }} plays</div>
+                          <button
+                            class="w-10 h-10 bg-gray-700/50 rounded-full flex items-center justify-center hover:bg-gray-600/50 transition-colors"
+                          >
+                            <span class="material-symbols-outlined text-gray-300"
+                              >more_vert</span
+                            >
+                          </button>
+                        </div>
+                          </a>
+                      {% empty %}
+                          <p>Пока нет лайкнутых треков.</p>
+                      {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <br><br><br><br><br><br><br><br>
+            </main>
+            <nav
+              class="md:hidden absolute bottom-0 left-0 right-0 h-16 bg-gray-800/90 backdrop-blur-lg border-t border-gray-700/30 flex items-center justify-around"
+            >
+              <button
+                class="w-12 h-12 flex items-center justify-center text-gray-300 hover:text-gray-100"
+              >
+                <a href="{% url 'main_page' %}">
+                <span class="material-symbols-outlined">home</span>
+                  </a>
+              </button>
+              <button
+                class="w-12 h-12 flex items-center justify-center text-gray-300 hover:text-gray-100"
+              >
+                <a href="{% url 'music_page' %}">
+                <span class="material-symbols-outlined">add_box</span>
+                  </a>
+              </button>
+              <button
+                class="w-12 h-12 flex items-center justify-center text-gray-300 hover:text-gray-100"
+              >
+                <a href="{% url 'library_page' %}">
+                <span class="material-symbols-outlined">library_music</span>
+                  </a>
+              </button>
+              <button
+                class="w-12 h-12 flex items-center justify-center text-gray-100"
+              >
+                <a href="{% url 'profile_view' %}">
+                <span class="material-symbols-outlined">person</span>
+                  </a>
+              </button>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function shareTrack() {
+  const trackUrl = window.location.href;
+  navigator.clipboard.writeText(trackUrl)
+    .then(() => {
+      alert('Ссылка скопирована в буфер обмена!');
+    })
+    .catch(err => console.error('Ошибка копирования:', err));
+}
+    </script>
+  </body>
+</html>

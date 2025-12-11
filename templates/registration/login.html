@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/login.css' %}">
+  </head>
+  <body>
+    <div id="login-page">
+      <div class="w-screen h-screen flex justify-center">
+        <div
+          class="w-screen h-screen bg-gradient-to-br from-gray-900 via-neutral-900 to-zinc-900 flex items-center justify-center"
+        >
+          <div
+            class="w-[420px] bg-gray-800/30 backdrop-blur-lg rounded-2xl p-8 border border-gray-700/30"
+          >
+            <div class="mb-8 flex items-center justify-center">
+              <div class="relative w-20 h-20 group">
+                <div
+                  class="absolute inset-0 bg-gradient-to-r from-gray-500 to-zinc-600 rounded-full blur-lg group-hover:blur-xl transition-all duration-300 opacity-50"
+                ></div>
+                <div
+                  class="relative bg-gray-900 rounded-full w-full h-full flex items-center justify-center border-2 border-gray-500/30 group-hover:scale-105 transition-all duration-300"
+                >
+                  <span
+                    class="text-2xl font-bold bg-gradient-to-r from-gray-300 to-zinc-400 bg-clip-text text-transparent"
+                    >AI</span
+                  >
+                </div>
+              </div>
+            </div>
+            <h1 class="text-2xl font-bold text-center text-gray-200 mb-6">
+              Вход в аккаунт
+            </h1>
+              <form action="" method="post">
+                  {% csrf_token %}
+                  <div class="space-y-4">
+              <div class="space-y-2">
+                <label class="text-sm text-gray-400">Никнейм</label>
+                <input
+                  type="text"
+                  name="username"
+                  class="w-full bg-gray-800/50 border border-gray-700/30 rounded-lg px-4 py-2 text-gray-200 focus:outline-none focus:border-gray-500 transition-colors"
+                  placeholder="Введите email"
+                />
+              </div>
+              <div class="space-y-2">
+                <label class="text-sm text-gray-400">Пароль</label>
+                <input
+                  type="password"
+                  name="password"
+                  class="w-full bg-gray-800/50 border border-gray-700/30 rounded-lg px-4 py-2 text-gray-200 focus:outline-none focus:border-gray-500 transition-colors"
+                  placeholder="Введите пароль"
+                />
+              </div>
+              <div class="flex items-center justify-between">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    class="w-4 h-4 bg-gray-800/50 border border-gray-700/30 rounded checked:bg-gray-500"
+                  />
+                  <span class="text-sm text-gray-400">Запомнить меня</span>
+                </label>
+              </div>
+              <button
+                      type="submit"
+                class="w-full py-2 bg-gradient-to-r from-gray-500 to-zinc-600 rounded-lg text-gray-200 font-medium hover:from-gray-600 hover:to-zinc-700 transition-colors"
+              >
+                Войти
+              </button>
+              <div class="text-center">
+                <span class="text-sm text-gray-400">Нет аккаунта? </span>
+                <a
+                  href="{% url 'register' %}"
+                  class="text-sm text-gray-300 hover:text-gray-200 transition-colors"
+                  >Зарегистрироваться</a
+                >
+              </div>
+            </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
